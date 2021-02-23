@@ -26,12 +26,13 @@ def create_template(example_file):
     with example_file.open('r') as f:
         content = json.load(f)
 
-    click.echo(json.dumps(content, indent=INDENT))
-
     current_root = content
     json_path = []
 
     while True:
+        click.echo('\n\n Current (sub)tree:')
+
+        click.echo(json.dumps(current_root, indent=INDENT))
         options = get_options(current_root)
         echo_options(options)
 
@@ -67,6 +68,9 @@ def create_template(example_file):
 
 
 def write_template(filename, content):
+    click.echo('The following template will be written to file:')
+    click.echo(json.dumps(content, indent=INDENT))
+
     with (TEMPLATES_DIR / filename).open('w') as f:
         json.dump(content, f)
 
@@ -99,7 +103,7 @@ def echo_options(options):
 
     click.echo('Leave empty to go up one level')
     click.echo('Press v to create variable')
-    click.echo('ctrl-c to save and go to next profile')
+    click.echo('Press x to save and go to next profile')
 
 
 if __name__ == '__main__':
