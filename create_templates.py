@@ -5,20 +5,22 @@ from pathlib import Path
 
 import click
 
-ROOT_DIR = Path(__file__).parent
-EXAMPLES_DIR = ROOT_DIR / 'examples'
+ROOT_DIR = Path.cwd()
+EXAMPLES = 'examples'
+DEFAULT_EXAMPLES_DIR = ROOT_DIR / EXAMPLES
 TEMPLATES_DIR = ROOT_DIR / 'templates'
-ONE_UP = ''
+ONE_UP = 'u'
 INDENT = 2
 CREATE_VARIABLE = 'v'
 EXIT = 'x'
 
 
 @click.command()
-def main():
+@click.argument('examples_dir', type=str, default=DEFAULT_EXAMPLES_DIR)
+def main(examples_dir):
     TEMPLATES_DIR.mkdir(exist_ok=True)
 
-    for f in EXAMPLES_DIR.iterdir():
+    for f in examples_dir.iterdir():
         create_template(f)
 
 
@@ -36,7 +38,7 @@ def create_template(example_file):
         options = get_options(current_root)
         echo_options(options)
 
-        choice = click.prompt('key')
+        choice = click.prompt('key').lower()
 
         print(choice)
         # User has not chosen a key, go up one level
