@@ -40,7 +40,7 @@ def create_template(example_file):
 
         print(choice)
         # User has not chosen a key, go up one level
-        if not choice or choice == '':
+        if choice == 'u':
             json_path.pop(-1)
             current_root = get_subtree(content, json_path)
             continue
@@ -93,6 +93,8 @@ def get_subtree(tree, json_path):
 def get_options(json_content):
     if isinstance(json_content, dict):
         return list(json_content.keys())
+    elif isinstance(json_content, list):
+        return range(len(json_content))
     else:
         return []
 
@@ -101,7 +103,7 @@ def echo_options(options):
     for idx, option in enumerate(options):
         click.echo(f'{idx}: {option}')
 
-    click.echo('Leave empty to go up one level')
+    click.echo('Press u to go up one level')
     click.echo('Press v to create variable')
     click.echo('Press x to save and go to next profile')
 
