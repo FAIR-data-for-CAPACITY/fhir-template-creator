@@ -16,11 +16,18 @@ EXIT = 'x'
 
 
 @click.command()
-@click.argument('examples_dir', type=str, default=DEFAULT_EXAMPLES_DIR)
-def main(examples_dir):
+@click.argument('examples_path', type=str, default=DEFAULT_EXAMPLES_DIR)
+def main(examples_path):
+    examples_path = Path(examples_path)
+    if examples_path.is_dir():
+        examples = examples_path.iterdir()
+    else:
+        # Assume it's a single example file
+        examples = [examples_path]
+
     TEMPLATES_DIR.mkdir(exist_ok=True)
 
-    for f in examples_dir.iterdir():
+    for f in examples:
         create_template(f)
 
 
