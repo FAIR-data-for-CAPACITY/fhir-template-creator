@@ -2,8 +2,18 @@
 
 import json
 from pathlib import Path
+from pygments import highlight
+from pygments.lexers.data import JsonLexer
+from pygments.formatters import Terminal256Formatter
+from pprint import pformat
 
 import click
+
+
+def pprint(obj):
+    json_string = json.dumps(obj, indent=INDENT)
+    click.echo(highlight(json_string, JsonLexer(), Terminal256Formatter()))
+
 
 ROOT_DIR = Path.cwd()
 EXAMPLES = 'examples'
@@ -41,7 +51,7 @@ def create_template(example_file):
     while True:
         click.echo('\n\n Current (sub)tree:')
 
-        click.echo(json.dumps(current_root, indent=INDENT))
+        pprint(current_root)
         options = get_options(current_root)
         echo_options(options)
 
