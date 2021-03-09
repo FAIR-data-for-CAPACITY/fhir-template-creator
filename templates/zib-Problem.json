@@ -1,0 +1,64 @@
+{
+  "resourceType": "Condition",
+  "id": "{{resource_id}}",
+  "meta": {
+    "profile": [
+      "http://nictiz.nl/fhir/StructureDefinition/zib-Problem"
+    ]
+  },
+  "text": {
+    "status": "extensions",
+    "div": "{{html_description}}"
+  },
+  {% if clinical_status_code %}
+  "clinicalStatus": "{{clinical_status_str}}",
+  "_clinicalStatus": {
+    "extension": [
+      {
+        "url": "http://nictiz.nl/fhir/StructureDefinition/code-specification",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "{{clinical_status_code_system}}",
+              "code": "{{clinical_status_code}}",
+              "display": "{{clinical_status_str}}"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {% endif %}
+  {% if verification_status_code %}
+  "verificationStatus": "{{verification_status_str}}",
+  "_verificationStatus": {
+    "extension": [
+      {
+        "url": "http://nictiz.nl/fhir/StructureDefinition/code-specification",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "{{verification_status_code_system}}",
+              "code": "{{verification_status_code}}",
+              "display": "{{verification_status_str}}"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {% endif %}
+  "code": {
+    "coding": [
+      {
+        "system": "{{problem_code_system}}",
+        "code": "{{problem_code}}",
+        "display": "{{problem_code_str}}"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "{{patient_id}}",
+    "display": "{{patient_name}}"
+  }
+}

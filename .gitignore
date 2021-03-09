@@ -1,4 +1,4 @@
 .idea/
 venv/
 examples/
-templates/
+.DS_Store
