@@ -1,0 +1,49 @@
+{
+  "resourceType": "Encounter",
+  "id": "{{resource_id}}",
+  "meta": {
+    "profile": [
+      "http://nictiz.nl/fhir/StructureDefinition/zib-Encounter"
+    ]
+  },
+  "text": {
+    "status": "extensions",
+    "div": "{{html_description}}"
+  },
+  "status": "{{status_str}}",
+  "class": {
+    "system": "{{class_code_system}}",
+    "code": "{{class_code}}",
+    "display": "{{class_code_str}}"
+  },
+  "subject": {
+    "reference": "{{patient_id}}",
+    "display": "{{patient_name}}"
+  },
+  "participant": [
+    {
+      "individual": {
+        "reference": "{{participant_id}}",
+        "display": "{{participant_name}}"
+      }
+    }
+  ],
+  "period": {
+    "start": "{{period_start}}",
+    "end": "{{period_end}}"
+  },
+  "diagnosis": [
+    {% for condition in conditions%}
+    {
+      "condition": {
+        "reference": "{{condition.id}}",
+        "display": "{{condition.display}}"
+      }
+    },
+  {% endfor %}
+  ],
+  "serviceProvider": {
+    "reference": "{{service_provider_id}}",
+    "display": "{{service_provider_display}}"
+  }
+}
