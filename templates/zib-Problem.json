@@ -10,7 +10,7 @@
     "status": "extensions",
     "div": "{{html_description}}"
   },
-  "{% if clinical_status_code %}"
+  {% if clinical_status_code %}
   "clinicalStatus": "{{clinical_status_str}}",
   "_clinicalStatus": {
     "extension": [
@@ -28,8 +28,8 @@
       }
     ]
   },
-  "{% endif %}"
-  "{% if verification_status_code %}"
+  {% endif %}
+  {% if verification_status_code %}
   "verificationStatus": "{{verification_status_str}}",
   "_verificationStatus": {
     "extension": [
@@ -47,7 +47,7 @@
       }
     ]
   },
-  "{% endif %}"
+  {% endif %}
   "code": {
     "coding": [
       {
