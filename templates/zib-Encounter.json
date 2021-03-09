@@ -32,15 +32,16 @@
     "start": "{{period_start}}",
     "end": "{{period_end}}"
   },
-  "diagnosis": "{% for condition in conditions%}"
+  "diagnosis": [
+    {% for condition in conditions%}
     {
       "condition": {
         "reference": "{{condition.id}}",
         "display": "{{condition.display}}"
       }
-    }
-  "{% endfor %}"
-  ,
+    },
+  {% endfor %}
+  ],
   "serviceProvider": {
     "reference": "{{service_provider_id}}",
     "display": "{{service_provider_display}}"
